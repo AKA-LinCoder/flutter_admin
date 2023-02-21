@@ -117,6 +117,11 @@ class StoreUtil {
     return responseBodyApi.success;
   }
 
+  ///@title loadDefaultTabs
+  ///@description TODO  获取默认的tab
+  ///@return: Future<bool?>
+  ///@updateTime 2023/2/21 16:26
+  ///@author LinGuanYu
   static Future<bool?> loadDefaultTabs() async {
     ResponseBodyApi responseBodyApi = await SettingDefaultTabApi.list();
     if (responseBodyApi.success!) {

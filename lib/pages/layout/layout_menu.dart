@@ -43,6 +43,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
 
   Widget _build(BuildContext context) {
     this.expandMenu ??= isDisplayDesktop(context) || Utils.isMenuDisplayTypeDrawer(context);
+    ///菜单上面控制子菜单显示和隐藏的东西
     var menuHeaderExpand = Row(
       children: [
         if (!Utils.isMenuDisplayTypeDrawer(context))
@@ -79,6 +80,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
       ],
     );
 
+    ///当菜单隐藏时，控制菜单的显示
     var menuHeaderCollapse = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -91,6 +93,8 @@ class _LayoutMenuState extends State<LayoutMenu> {
         ),
       ],
     );
+
+    ///菜单栏顶部
     var menuHeader = Material(
       type: MaterialType.transparency,
       child: Container(
@@ -99,6 +103,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
         child: expandMenu! ? menuHeaderExpand : menuHeaderCollapse,
       ),
     );
+
     var menuBody = ListView(
       key: Key('builder ${expandAll.toString()}'),
       children: [
@@ -133,6 +138,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
       String name = Utils.isLocalEn(context) ? treeVO.data!.nameEn ?? '' : treeVO.data!.name ?? '';
       Text title = Text(expandMenu! ? name : '');
       if (treeVO.children.length > 0) {
+        ///有子菜单的情况
         bool hasChildrenOpened = treeVO.children.any((element) => currentOpenedTabPageId == element.data!.id);
         return ExpansionTile(
           key: Key(treeVO.data!.id!),
@@ -143,6 +149,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
           childrenPadding: EdgeInsets.only(left: this.expandMenu! ? 30 : 0),
         );
       } else {
+        ///没有子菜单的情况
         return ListTile(
           tileColor: currentOpenedTabPageId == treeVO.data!.id ? Colors.blue.shade100 : null,
           leading: Icon(iconData, color: context.theme.primaryColor),

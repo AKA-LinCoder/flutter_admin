@@ -236,28 +236,41 @@ class _LoginState extends State<Login> {
   _register() {
     Cry.pushNamed('/register');
   }
-
+  ///@title _login
+  ///@description TODO  登陆函数
+  ///@updateTime 2023/2/21 16:19
+  ///@author LinGuanYu
   _login() async {
     var form = formKey.currentState!;
     if (!form.validate()) {
       return;
     }
     form.save();
-
     ResponseBodyApi responseBodyApi = await UserApi.login(user.toMap());
     if (!responseBodyApi.success!) {
       focusNodePassword.requestFocus();
       return;
     }
+    ///登陆成功
     _loginSuccess(responseBodyApi);
   }
 
+  ///@title _loginSuccess
+  ///@description TODO 登陆成功调用
+  ///@param: responseBodyApi
+  ///@updateTime 2023/2/21 16:19
+  ///@author LinGuanYu
   _loginSuccess(ResponseBodyApi responseBodyApi) async {
+
     StoreUtil.write(Constant.KEY_TOKEN, responseBodyApi.data[Constant.KEY_TOKEN]);
     StoreUtil.write(Constant.KEY_CURRENT_USER_INFO, responseBodyApi.data[Constant.KEY_CURRENT_USER_INFO]);
+    ///获取枚举值关系
     await StoreUtil.loadDict();
+    ///获取子系统(首页点击...展示)
     await StoreUtil.loadSubsystem();
+    ///根据登陆角色，获取左侧要展示的菜单数据
     await StoreUtil.loadMenuData();
+    ///获取横着展示的默认tab
     await StoreUtil.loadDefaultTabs();
     StoreUtil.init();
 

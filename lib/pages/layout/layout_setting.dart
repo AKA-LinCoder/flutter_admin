@@ -17,6 +17,7 @@ import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
 
+///点击页面设置按钮触发的页面
 class LayoutSetting extends StatelessWidget {
   LayoutSetting({Key? key}) : super(key: key);
 

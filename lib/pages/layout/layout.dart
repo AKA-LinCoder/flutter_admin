@@ -39,10 +39,13 @@ class _LayoutState extends State {
   Widget build(BuildContext context) => GetBuilder<LayoutController>(builder: (_) => _build(context));
 
   Widget _build(BuildContext context) {
+    ///左侧菜单列表
     var layoutMenu = LayoutMenu(onClick: (Menu menu) => Utils.openTab(menu.id!));
     LayoutController layoutController = Get.find();
     var body = Utils.isMenuDisplayTypeDrawer(context) || layoutController.isMaximize
+    ///只展示主体内容
         ? Row(children: [LayoutCenter(key: layoutCenterKey)])
+    ///展示主体内容已经左侧菜单
         : Row(
             children: <Widget>[
               layoutMenu,
@@ -51,14 +54,18 @@ class _LayoutState extends State {
                 color: Colors.black12,
                 thickness: 2,
               ),
+              ///具体显示内容
               LayoutCenter(key: layoutCenterKey),
             ],
           );
+    ///如果点击图标将isMaximize变为true 就隐藏顶部appbar以及左侧的菜单列表
     Scaffold subWidget = layoutController.isMaximize
         ? Scaffold(body: body)
         : Scaffold(
             key: scaffoldStateKey,
+            ///菜单列表
             drawer: layoutMenu,
+            ///右边的设置按钮
             endDrawer: LayoutSetting(),
             body: body,
             appBar: getAppBar(),
@@ -66,6 +73,7 @@ class _LayoutState extends State {
     return subWidget;
   }
 
+  ///最上面的appbar
   getAppBar() {
     var userInfo = StoreUtil.getCurrentUserInfo();
     var subsystemList = StoreUtil.getSubsystemList();
@@ -124,6 +132,7 @@ class _LayoutState extends State {
           child: IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
+              ///打开设置按钮
               scaffoldStateKey.currentState!.openEndDrawer();
             },
           ),

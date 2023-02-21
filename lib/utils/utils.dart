@@ -29,7 +29,14 @@ class Utils {
     );
   }
 
+  ///@title openTab
+  ///@description TODO 点击菜单项触发函数
+  ///@param: id
+  ///@updateTime 2023/2/21 16:36
+  ///@author LinGuanYu
   static openTab(String id) {
+    print("你点击我干嘛");
+
     TabPage? tabPage = (StoreUtil.getDefaultTabs() + Routes.otherTabPage).firstWhereOrNull((element) => element.id == id);
     if (tabPage == null) {
       var menuList = StoreUtil.getMenuList();
